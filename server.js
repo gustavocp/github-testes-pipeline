@@ -12,7 +12,7 @@ let users = [];
 
 // Endpoint de saúde
 app.get("/ping", (req, res) => {
-    res.send("pong");
+    res.send("pooong");
 });
 
 // CRUD de Usuários
