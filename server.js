@@ -12,6 +12,19 @@ app.use(bodyParser.json());
 // Simulação de um banco de dados (em memória)
 let users = [];
 
+// Função para pegar IP IPv4 correto
+function getServerIp() {
+    const interfaces = os.networkInterfaces();
+    for (const iface of Object.values(interfaces)) {
+        for (const info of iface) {
+            if (info.family === "IPv4" && !info.internal) {
+                return info.address; // Retorna o primeiro IP externo encontrado
+            }
+        }
+    }
+    return "IP not found";
+}
+
 // Endpoint de saúde
 app.get("/ping", (req, res) => {
     const hostname = os.hostname(); // Nome do servidor
