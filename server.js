@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const os = require("os");
+const requestIp = require("request-ip");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +14,9 @@ let users = [];
 
 // Endpoint de saúde
 app.get("/ping", (req, res) => {
-    res.send("pong");
+    const hostname = os.hostname(); // Obtém o nome do servidor
+    const serverIp = req.socket.localAddress; // Obtém o IP do servidor
+    res.send(`pong - Hostname: ${hostname}, Server IP: ${serverIp}`);
 });
 
 // CRUD de Usuários
