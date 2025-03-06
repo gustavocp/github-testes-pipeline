@@ -14,10 +14,24 @@ let users = [];
 
 // Endpoint de saúde
 app.get("/ping", (req, res) => {
-    const hostname = os.hostname(); // Obtém o nome do servidor
-    const serverIp = req.socket.localAddress; // Obtém o IP do servidor
-    res.send(`pong - Hostname: ${hostname}, Server IP: ${serverIp}`);
+    const hostname = os.hostname(); // Nome do servidor
+    const serverIp = getServerIp(); // Pega o IPv4 correto
+    const containerId = process.env.HOSTNAME || "Unknown"; // ID do Container Docker
+    const nodeVersion = process.version; // Versão do Node.js
+    const uptime = process.uptime(); // Tempo de execução em segundos
+    const memoryUsage = process.memoryUsage().rss / 1024 / 1024; // Memória em MB
+
+    res.json({
+        message: "pong",
+        hostname,
+        serverIp,
+        containerId,
+        nodeVersion,
+        uptime: `${uptime.toFixed(2)}s`,
+        memoryUsage: `${memoryUsage.toFixed(2)} MB`
+    });
 });
+
 
 // CRUD de Usuários
 app.get("/users", (req, res) => {
