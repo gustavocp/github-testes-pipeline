@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 
+// Rota para validar o Loader.io
+app.get('/loaderio-fb055688641fe3d92401e1212dd754d4.txt', (req, res) => {
+    res.type('text/plain').send('loaderio-fb055688641fe3d92401e1212dd754d4');
+});
+
 // Simulação de um banco de dados (em memória)
 let users = [];
 
@@ -78,11 +83,6 @@ app.delete("/users/:id", (req, res) => {
     const { id } = req.params;
     users = users.filter((user) => user.id != id);
     res.status(204).send();
-});
-
-// Rota para validar o Loader.io
-app.get('/loaderio-fb055688641fe3d92401e1212dd754d4.txt', (req, res) => {
-    res.type('text/plain').send('loaderio-fb055688641fe3d92401e1212dd754d4');
 });
 
 // Iniciar o servidor
