@@ -80,6 +80,11 @@ app.delete("/users/:id", (req, res) => {
     res.status(204).send();
 });
 
+// Rota para validar o Loader.io
+app.get('/loaderio-fb055688641fe3d92401e1212dd754d4.txt', (req, res) => {
+    res.type('text/plain').send('loaderio-fb055688641fe3d92401e1212dd754d4');
+});
+
 // Iniciar o servidor
 if (require.main === module) {
     app.listen(PORT, () => {
