@@ -30,6 +30,25 @@ function getServerIp() {
     return "IP not found";
 }
 
+app.get("/heavy", (req, res) => {
+    const startTime = Date.now();
+    
+    // Simula carga de CPU com um loop grande (~10% da CPU por requisição)
+    let count = 0;
+    for (let i = 0; i < 1e8; i++) {
+        count += Math.sqrt(i); // Operação matemática leve para manter CPU ativa
+    }
+
+    const elapsedTime = Date.now() - startTime;
+
+    res.json({
+        message: "🔥 CPU Load Generated",
+        elapsedTime: `${elapsedTime}ms`,
+        server: os.hostname(),
+        count: count.toFixed(2) // Apenas para mostrar algo no retorno
+    });
+});
+
 // Endpoint de saúde
 app.get("/ping", (req, res) => {
     const hostname = os.hostname(); // Nome do servidor
