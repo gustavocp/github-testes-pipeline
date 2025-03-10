@@ -33,19 +33,18 @@ function getServerIp() {
 app.get("/heavy", (req, res) => {
     const startTime = Date.now();
     
-    // Simula carga de CPU com um loop grande (~10% da CPU por requisição)
     let count = 0;
-    for (let i = 0; i < 1e8; i++) {
-        count += Math.sqrt(i); // Operação matemática leve para manter CPU ativa
+    for (let i = 0; i < 5e8; i++) { // Aumentado de 1e8 para 5e8
+        count += Math.sqrt(i) * Math.log(i + 1); // Operação um pouco mais pesada
     }
 
     const elapsedTime = Date.now() - startTime;
 
     res.json({
-        message: "🔥 CPU Load Generated",
+        message: "🔥 CPU Load Increased 5x",
         elapsedTime: `${elapsedTime}ms`,
         server: os.hostname(),
-        count: count.toFixed(2) // Apenas para mostrar algo no retorno
+        count: count.toFixed(2)
     });
 });
 
