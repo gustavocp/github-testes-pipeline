@@ -10,3 +10,16 @@ services:
       NODE_ENV: production
     ports:
       - 3000:3000
+    deploy:
+      mode: replicated
+      replicas: 4
+      placement:
+        spread:
+          - node.id
+      update_config:
+        parallelism: 1
+        delay: 5s
+        failure_action: rollback
+        order: start-first
+      restart_policy:
+        condition: any
